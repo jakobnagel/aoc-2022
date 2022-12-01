@@ -6,6 +6,11 @@ char line[MAXLINE];
 
 int readline(void);
 int linetoint(void);
+void updatetop(int);
+
+int top1 = 0;
+int top2 = 0;
+int top3 = 0;
 
 /* sums all the lines between empty spaces, returns longest */
 int main(void)
@@ -20,16 +25,45 @@ int main(void)
     // Empty Line
     if (amount == 0)
     {
-      if (current > longest)
-      {
-        longest = current;
-      }
+      updatetop(current);
       current = 0;
     }
   }
 
-  printf("\nMost Calories: %d\n", longest);
+  int calories = top1 + top2 + top3;
+
+  printf("\nMost Calories: %d\n", calories);
   return 0;
+}
+
+/* updates the top calorie values given a new value */
+void updatetop(int value)
+{
+  extern int top1;
+  extern int top2;
+  extern int top3;
+
+  if (value > top3)
+  {
+    if (value > top2)
+    {
+      if (value > top1)
+      {
+        top3 = top2;
+        top2 = top1;
+        top1 = value;
+      }
+      else
+      {
+        top3 = top2;
+        top2 = value;
+      }
+    }
+    else
+    {
+      top3 = value;
+    }
+  }
 }
 
 /* getline: reads a line into line, returns the length of the line */
