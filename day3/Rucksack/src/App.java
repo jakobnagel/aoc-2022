@@ -7,16 +7,37 @@ public class App {
   public static void main(String[] args) throws Exception {
     ArrayList<String> lines = getItems();
     String[][] rucksacks = sortRucksacks(lines);
-    char[] commonItems = commonItems(rucksacks);
-    int[] priorities = new int[commonItems.length];
+    /*
+     * char[] commonItems = commonItems(rucksacks);
+     * int[] priorities = new int[commonItems.length];
+     * 
+     * for (int i = 0; i < priorities.length; i++) {
+     * priorities[i] = itemToPriority(commonItems[i]);
+     * }
+     * 
+     * int sum = 0;
+     * for (int i = 0; i < priorities.length; i++) {
+     * sum += priorities[i];
+     * }
+     * 
+     * System.out.println(sum);
+     */
 
-    for (int i = 0; i < priorities.length; i++) {
-      priorities[i] = itemToPriority(commonItems[i]);
+    String[][] groups = new String[rucksacks.length / 3][3];
+    for (int i = 0; i < rucksacks.length; i++) {
+      int group = Math.floorDiv(i, 3);
+      int memberNumber = i % 3;
+      groups[group][memberNumber] = rucksacks[i][0] + rucksacks[i][1];
+    }
+
+    char[] priorityItems = new char[groups.length];
+    for (int i = 0; i < groups.length; i++) {
+      priorityItems[i] = duplicate2(groups[i]);
     }
 
     int sum = 0;
-    for (int i = 0; i < priorities.length; i++) {
-      sum += priorities[i];
+    for (int i = 0; i < priorityItems.length; i++) {
+      sum += itemToPriority(priorityItems[i]);
     }
 
     System.out.println(sum);
@@ -72,6 +93,24 @@ public class App {
     for (int i = 0; i < pack1.length(); i++) {
       char item = pack1.charAt(i);
       if (pack2.contains("" + item)) {
+        return item;
+      }
+    }
+    return '\0';
+  }
+
+  static char duplicate2(String[] packs) {
+    for (int i = 0; i < packs[0].length(); i++) {
+      char item = packs[0].charAt(i);
+      boolean duplicate = true;
+      for (int j = 1; j < packs.length; j++) {
+        if (!packs[j].contains("" + item)) {
+          duplicate = false;
+          break;
+        }
+      }
+
+      if (duplicate) {
         return item;
       }
     }
