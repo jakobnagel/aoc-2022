@@ -26,7 +26,7 @@ bool IsContained(string line)
   int min2 = Convert.ToInt32(elf2[0]);
   int max2 = Convert.ToInt32(elf2[1]);
 
-  return min1 >= min2 && max1 <= max2 || min2 >= min1 && max2 <= max1;
+  return min1 >= min2 && min1 <= max2 || min2 >= min1 && min2 <= max1;
 }
 
 string[] split(string line, char sChar)
