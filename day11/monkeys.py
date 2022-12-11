@@ -9,8 +9,7 @@ class Item:
         self.worry = starting_worry
 
     def relief(self):
-        # self.worry //= 3
-        pass
+        self.worry = self.worry % 9699690
 
 
 class Monkey:
@@ -27,7 +26,8 @@ class Monkey:
         self.test_func = test
 
     def inspect(self):
-        self.items[0].worry = self.operation(self.items[0].worry)
+        item = self.items[0]
+        item.worry = self.operation(item.worry)
         self.items_inspected += 1
 
     def test(self):
