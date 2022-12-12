@@ -1,5 +1,4 @@
 from typing import List
-from functools import reduce
 
 
 class Item:
